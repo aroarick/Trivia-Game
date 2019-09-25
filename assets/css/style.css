@@ -1,0 +1,52 @@
+body {
+    background-image: url('https://media.giphy.com/media/Y07JHGMqEAOXcoyIaR/giphy.gif');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container {
+    background: black;
+    border: 4px dashed white;
+    height: 400px;
+    width: 800px;
+    margin: 0 auto;
+}
+
+.glow {
+    font-family: 'Righteous', cursive;
+    margin-top: 25px; 
+    margin-bottom: 25px; 
+    font-size: 60px;
+    color: #fff;
+    text-align: center;
+    -webkit-animation: glow 1s ease-in-out infinite alternate;
+    -moz-animation: glow 1s ease-in-out infinite alternate;
+    animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+    from {
+        text-shadow:
+            0 0 6px rgba(239, 149, 207, 0.34),
+            0 0 30px rgba(239, 149, 207, 0.34),
+            0 0 12px rgba(229, 109, 177, 0.52),
+            0 0 21px rgba(233, 60, 172, 0.92),
+            0 0 34px rgba(223, 25, 49, 0.92),
+            0 0 54px rgba(51, 0, 114, 0.92);
+    }
+
+    to {
+        text-shadow:
+        0 0 6px rgba(239, 149, 207, 0.34),
+        0 0 30px rgba(239, 149, 207, 0.34),
+        0 0 12px rgba(229, 109, 177, 0.52),
+        0 0 21px rgba(233, 60, 172, 0.92),
+        0 0 34px rgba(223, 25, 49, 0.92),
+        0 0 54px rgba(51, 0, 114, 0.92);
+    }
+}
+
+#time {
+    color: red;
+}
