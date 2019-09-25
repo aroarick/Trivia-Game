@@ -4,7 +4,7 @@
 <head>
 
     <title>Trivia Game</title>
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -16,20 +16,21 @@
     <h1 class="glow">Totally Tubular Trivia</h1>
 
     <div class="container">
+        <div id="game">
+            <div id="time">Remaining Time: <span id="timer"></span></div>
+            <p id="question"></p>
+        </div>
 
-        <div id="time"></div>
+        <div class="results"></div>
 
-        <button class="btn btn-sucess" id="start">Start Game</button>
-        <button class="btn btn-sucess" id="restart">Restart Game</button>
+        <button class="btn btn-info btn-lg" id="start">Start Game</button>
+        <button class="btn btn-info btn-lg" id="restart">Restart Game</button>
 
-        <button data-choice="0"></button>
-        <button data-choice="1"></button>
-        <button data-choice="2"></button>
-        <button data-choice="3"></button>
 
     </div>
 
-    <script type="text/javascript" src="assets/javascript/app.js"></script>
+    <!-- <script type="text/javascript" src="assets/javascript/app.js"></script> -->
+    <script type="text/javascript" src="assets/javascript/tryingSomethingOut.js"></script>
 
 </body>
 
