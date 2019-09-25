@@ -1,3 +1,5 @@
+//
+
 var questions = [{
         question: "In 'Bill and Ted's Excellent Adventure', where are 'strange things afoot'? ",
         choices: ["Circle K", "Exxon", "Racetrack", "Square C"],
@@ -58,6 +60,8 @@ var gamePlay = {
     intervalId: null,
     playerGuess: "",
     timeStart: false,
+    choose: null,
+
 }
 
 $(document).ready(function () {
@@ -65,15 +69,11 @@ $(document).ready(function () {
 
     $("#start").on("click", function () {
         $("#start").hide();
-        showQuestion();
+        // showQuestion();
         startTimer();
-        stopTimer();
+        // stopTimer();
     });
 });
-
-function showQuestion() {
-    
-}
 
 function startTimer() {
     if (!gamePlay.timeStart) {
@@ -84,10 +84,11 @@ function startTimer() {
 
 function stopTimer() {
     clearInterval(gamePlay.intervalId);
+    gamePlay.timeStart = false;
 }
 
 function decrement() {
-    gamePlay.timer--;
     $("#time").html("<h2>" + gamePlay.timer + "</h2>");
+    gamePlay.timer--;
 }
 
