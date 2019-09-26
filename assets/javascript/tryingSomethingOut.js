@@ -1,59 +1,73 @@
 $(document).ready(function () {
     $("#time").hide();
     $("#start").on("click", gamePlay.startGame);
-    $(document).on("click", '.options', gamePlay.checkGuess);
+    $(document).on("click", '.choice', gamePlay.checkGuess);
 });
 
 var gamePlay = {
     correct: 0,
     wrong: 0,
     unanswered: 0,
-    currentQuestion: 0,
+    currentQuestionIndex: 0,
     timer: 20,
     startTimer: false,
     timerId: "",
 
-    questions: {
-        question1: "In Bill and Ted's Excellent Adventure, where are strange things afoot?",
-        question2: "Who does Marty's mom like in Back to the Future when Marty goes back in time?",
-        question3: "What do the characters in Real Genius fill Jerry's house with",
-        question4: "What does Indiana Jones say when confronted with snakes in Raider of the Lost Ark?",
-        question5: "What is Yoda's famous line in The Empire Strikes Back when he is training with Luke?",
-        question6: "What kind of car did Jake Ryan drive in Sixteen Candles?",
-        question7: "What are the rules for keeping a Gremlin?",
-        question8: "What iconic line does Bruce Campbell say in 'The Evil Dead' when he replaces his hand with a chainsaw?",
-        question9: "What power does the babe have in Labyrinth?",
-        question10: "Die Hard is a Christmas movie"
+    questions: [
+    {
+        question: "In 'Bill and Ted's Excellent Adventure', where are 'strange things afoot'? ",
+        choices: ["Circle K", "Exxon", "Racetrack", "Square C"],
+        answer: 0
     },
-
-    choices: {
-        question1: ["Circle K", "Exxon", "Racetrack", "Square C"],
-        question2: ["Dr. Emmet Brown", "George McFly", "Biff Tannen", "Marty McFly"],
-        question3: ["Post-it Notes", "Popcorn", "Balloons", "Shaving Cream"],
-        question4: ["Not snakes!", "Get me outta here!", "Snakes. Why did it have to be snakes.", "Of all the things, it had to be snakes!"],
-        question5: ["Do or do not. There is no try", "Luminous beings are we, not this crude matter.", "Truly wonderful, the mind of a child is.", "Adventure. Excitement. A Jedi craves not these things."],
-        question6: ["Rolls Royce", "BMW", "Ferrari", "Porsche"],
-        question7: ["Don't talk to it, don't let it speak, and don't let it eat", "Keep him out of the light, don't give him any water, never feed him after midnight", "Make sure he has light, water him every hour, only feed him at night", "Name him Gizmo, make sure he has friends, keep him happy"],
-        question8: ["Sweet", "Awesome", "Groovy", "Radical"],
-        question9: ["the power of voodoo", "the power of hoodoo", "the power of joodoo", "the power of hulu"],
-        question10: ["False", "True"]
+    {
+        question: "Who does Marty's mom like in 'Back to the Future' when Marty goes back in time?",
+        choices: ["Dr. Emmet Brown", "George McFly", "Biff Tannen", "Marty McFly"],
+        answer: 3
     },
-
-    answers: {
-        question1: "Circle K",
-        question2: "Marty McFly",
-        question3: "Popcorn",
-        question4: "Snakes. Why did it have to be snakes",
-        question5: "Do or do not. There is no try.",
-        question6: "Porsche",
-        question7: "Keep him out of the light, don't give him any water, never feed him after midnight",
-        question8: "Groovy",
-        question9: "the power of voodoo",
-        question10: "true"
+    {
+        question: "What do the characters in 'Real Genius' fill Jerry's house with",
+        choices: ["Post-it Notes", "Popcorn", "Balloons", "Shaving Cream"],
+        answer: 1
     },
+    {
+        question: "What does Indiana Jones say when confronted with snakes in 'Raider of the Lost Ark?'",
+        choices: ["Not snakes!", "Get me outta here!", "Snakes. Why did it have to be snakes.", "Of all the things, it had to be snakes!"],
+        answer: 2
+    },
+    {
+        question: "What is Yoda's famous line in 'The Empire Strikes Back' when he is training with Luke?",
+        choices: ["Do or do not. There is no try", "Luminous beings are we, not this crude matter.", "Truly wonderful, the mind of a child is.", "Adventure. Excitement. A Jedi craves not these things."],
+        answer: 0
+    },
+    {
+        question: "What kind of car did Jake Ryan drive in 'Sixteen Candles'?",
+        choices: ["Rolls Royce", "BMW", "Ferrari", "Porsche"],
+        answer: 3
+    },
+    {
+        question: "What are the rules for keeping a Gremlin?",
+        choices: ["Don't talk to it, don't let it speak, and don't let it eat", "Keep him out of the light, don't give him any water, never feed him after midnight", "Make sure he has light, water him every hour, only feed him at night", "Name him Gizmo, make sure he has friends, keep him happy"],
+        answer: 1
+    },
+    {
+        question: "What iconic line does Bruce Campbell say in 'The Evil Dead' when he replaces his hand with a chainsaw?",
+        choices: ["Sweet", "Awesome", "Groovy", "Radical"],
+        answer: 2
+    },
+    {
+        question: "What power does the babe have in 'Labyrinth'?",
+        choices: ["the power of voodoo", "the power of hoodoo", "the power of joodoo", "the power of hulu"],
+        answer: 0
+    },
+    {
+        question: "'Die Hard' is a Christmas movie",
+        choices: ["False", "True"],
+        answer: 1
+    },
+],
 
     startGame: function () {
-        gamePlay.currentQuestion = 0;
+        gamePlay.currentQuestionIndex = 0;
         gamePlay.correct = 0;
         gamePlay.wrong = 0;
         gamePlay.unanswered = 0;
@@ -79,15 +93,18 @@ var gamePlay = {
             gamePlay.timerId = setInterval(gamePlay.timeRun, 1000);
         }
 
-        var questionObject = Object.values(gamePlay.questions)[gamePlay.currentQuestion];
+        var questionObject = gamePlay.questions[gamePlay.currentQuestionIndex];
 
-        $.each(questionObject, function (index, key) {
-            $('#choices').append($('<button class="choices btn btn-info btn-large">' + key + '</button>'));
-        });
+        $("#question").text(questionObject.question);
+        $("#choices").empty();
+        for(var i=0; i < questionObject.choices.length; i++) {
+            $('#choices').append($('<button data-index="' + i + '" class="choice btn btn-info btn-large">' + questionObject.choices[i] + '</button>'));
+            
+        }
     },
 
     timeRun: function () {
-        if (gamePlay.timer > -1 && gamePlay.currentQuestion < Object.keys(gamePlay.questions).length) {
+        if (gamePlay.timer > -1 && gamePlay.currentQuestionIndex < (gamePlay.questions).length) {
             $('#timer').text(gamePlay.timer);
             gamePlay.timer--;
             if (gamePlay.timer === 4) {
@@ -97,13 +114,14 @@ var gamePlay = {
             gamePlay.unanswered++;
             gamePlay.result = false;
             clearInterval(gamePlay.timerId);
-            resultId = setTimeout(gamePlay.playerGuess, 1000);
-            $('#results').html('<h3>Too Late! It was ' + Object.values(gamePlay.answers)[gamePlay.currentQuestion] + '</h3>');
-        } else if (gamePlay.currentQuestion === Object.keys(gamePlay.questions).length) {
+            resultId = setTimeout(gamePlay.playerGuess, 2000);
+            
+            $('#results').html('<h3>Too Late! It was \'' + gamePlay.questions[gamePlay.currentQuestionIndex].choices[gamePlay.questions[gamePlay.currentQuestionIndex].answer] + '\'</h3>');
+        } else if (gamePlay.currentQuestionIndex === (gamePlay.questions).length) {
             $('#results')
                 .html('<h3>Thanks you for playing!</h3>' +
                     '<p>Correct: ' + gamePlay.correct + '</p>' +
-                    '<p>Incorrect: ' + gamePlay.incorrect + '</p>' +
+                    '<p>Incorrect: ' + gamePlay.wrong + '</p>' +
                     '<p>Unanswered: ' + gamePlay.unanswered + '</p>' +
                     '<p>Try Again</p>');
             $('#game').hide();
@@ -112,13 +130,15 @@ var gamePlay = {
         }
     },
 
-    checkGuess: function() {
+    checkGuess: function(e) {
         var resultId;
 
-        var correctAnswer = Object.values(gamePlay.answers)[gamePlay.currentQuestion];
+        var correctAnswer = gamePlay.questions[gamePlay.currentQuestionIndex].answer;
+        
+        var playerAnswer = e.currentTarget.getAttribute("data-index");
 
-        if($(this).text() === correctAnswer) {
-            $(this).addClass('btn-success').removeClass('btn-info');
+        if(playerAnswer == correctAnswer) {
+            $(e.currentTarget).addClass('btn-success').removeClass('btn-info');
 
             gamePlay.correct++;
             clearInterval(gamePlay.timerId);
@@ -127,19 +147,19 @@ var gamePlay = {
         }
 
         else {
-            $(this).addClass('btn-danger').removeClass('btn-info');
+            $(e.currentTarget).addClass('btn-danger').removeClass('btn-info');
 
-            gamePlay.incorrect++;
+            gamePlay.wrong++;
             clearInterval(gamePlay.timerId);
             resultId = setTimeout(gamePlay.playerGuess, 1000);
-            $('#results').html('<h3>Better luck next time! '+ correctAnswer +'</h3>');
+            $('#results').html('<h3>Better luck next time! '+ gamePlay.questions[gamePlay.currentQuestionIndex].choices[gamePlay.questions[gamePlay.currentQuestionIndex].answer] +'</h3>');
         }
     },
 
     playerGuess: function() {
-        gamePlay.currentQuestion++;
-        $('.option').remove();
-        $('#results h3').remove();
+        gamePlay.currentQuestionIndex++;
+        $('.choices').empty();
+        $('#results h3').empty();
 
         gamePlay.nextQuestion();
     }
