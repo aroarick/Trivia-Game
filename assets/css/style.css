@@ -16,13 +16,14 @@ body {
 
 .btn-mine {
     background-color: rgb(255, 164, 0);
-    margin-left: 300px;
+    margin-left: 250px;
     margin-top: 120px;
 }
 
 .btn-other {
     background-color: rgb(255, 164, 0);
     margin-top: 60px;
+    color: #fff;
 }
 
 .glow {
